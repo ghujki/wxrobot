@@ -7,5 +7,8 @@
 			<attribute name="source_encoding" value="UTF-8"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="json-20151123.jar"/>
+	<classpathentry kind="lib" path="log4j-api-2.5.jar"/>
+	<classpathentry kind="lib" path="log4j-core-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

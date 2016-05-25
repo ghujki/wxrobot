@@ -1,24 +1,34 @@
 package com.wsg.robot;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.ColorDialog;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
@@ -30,6 +40,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Application {
 	private Display display;
@@ -38,11 +50,79 @@ public class Application {
     private Table tb_rules;
     private Menu menu;
     
+    /**
+     * æ˜¯å¦æ”¯æŒç¾¤èŠå›å¤
+     * */
+    public static boolean ROOMCHAT_ENABLED = false;
+    private static List<ReplyConfig> configs = new ArrayList<> ();
+    private static String filePath = "config/reply.json";
+    private Logger logger = LogManager.getLogger(Application.class);
+    
+    //
+    private boolean firstClick = true;
+    
 	public Application() {
 		display = new Display ();
 		shell = new Shell(display);
+		try {
+			String configStr = getConfigString();
+			JSONArray arr = new JSONArray(configStr);
+			for (Object o : arr) {
+				JSONObject obj = (JSONObject)o;
+				ReplyConfig config = new ReplyConfig(obj.get("match").toString(),obj.get("replyType").toString(),obj.get("replyContent").toString());
+				configs.add(config);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		
+		shell.addDisposeListener(new DisposeListener(){
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				//ä¿å­˜æ–‡ä»¶
+				try {
+					JSONArray arr = new JSONArray();
+					for(ReplyConfig config : configs) {
+						JSONObject obj = new JSONObject(config);
+						arr = arr.put(obj);
+					}
+					OutputStreamWriter ow = new OutputStreamWriter(new FileOutputStream(filePath),"UTF-8");
+					BufferedWriter wr = new BufferedWriter(ow);
+					wr.write(arr.toString());
+					wr.flush();
+					wr.close();
+					ow.close();
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}});
 	}
 	
+	private String getConfigString() throws IOException {
+		InputStreamReader isr = new InputStreamReader(new FileInputStream(filePath), "UTF-8");  
+		BufferedReader b = new BufferedReader(isr);  
+		String line = b.readLine();
+		StringBuffer buffer = new StringBuffer();
+		while(line != null) {
+			buffer.append(line);
+			line = b.readLine();
+		}
+		b.close();
+		isr.close();
+		return buffer.toString();
+	}
+	public static String reply(String msg,String sender) throws Exception {
+		for (ReplyConfig config : configs) {
+			if (config.matches(msg)) {
+				return config.getReply(msg,sender);
+			}
+		}
+		return null;
+	}
 	public void show() {
 		
 		GridLayout layout = new GridLayout();
@@ -52,11 +132,13 @@ public class Application {
 
 
         browser = new Browser(shell,SWT.BORDER);
+        Browser.clearSessions();
         browser.setUrl("https://wx.qq.com");
 
         GridData gd3 = new GridData(GridData.FILL_BOTH);
         browser.setLayoutData(gd3);
-        BrowserFunction function = new GetReplyFunction(browser,"getReply");
+        @SuppressWarnings("unused")
+		BrowserFunction function = new GetReplyFunction(browser,"getReply");
         
         Group group = new Group(shell,SWT.PUSH);
         
@@ -72,40 +154,85 @@ public class Application {
         
         Button btn_autoResp = new Button(group,SWT.CHECK);
         btn_autoResp.setSelection(false);
-        btn_autoResp.setText("×Ô¶¯»Ø¸´");
+        btn_autoResp.setText("è‡ªåŠ¨å›å¤");
         btn_autoResp.addSelectionListener(new SelectionAdapter(){
         	public void widgetSelected(SelectionEvent event) {
         		Button btn = (Button) event.widget;
         		if (btn.getSelection()) {
-        			browser.execute("var $scope1 = angular.element('.chat_item').scope();"
-        					+ " var $scope2 = angular.element('[ng-controller=chatSenderController]').scope(); "
-        					+ " var cur_userName = $scope1.account.UserName;"
-        					+ " $scope1.$watch('chatList',function(v1,v2){"
-        					+ "  v1.forEach(function(e){"
-        					+ "  	var msg = e.MMDigest;"
-        					+ " 	if (msg != null && msg != '' && e.UserName != cur_userName) {"
-        					+ "  			var reply = getReply(msg,e.UserName,e.MMDigestTime,e.isInChatroom());"
-        					+ "             if(reply != null) {     "
-        					+ "  			$scope2.currentUserName = e.UserName;"
-        					+ "  			$scope1.itemClick(e.UserName);"
-        					+ "  			$scope2.editAreaCtn = reply;"
-        					+ "			  	setTimeout(function(){  "
-        					+ "			  		$scope2.$apply();"
-        					+ "			  		$scope2.sendTextMessage();"
-        					+ "			  		},0);}"
-        					+ "  	}});},true);");
+        			if (firstClick) {
+        			browser.execute(" function findLast(obj,userName) {" +
+                            "     obj.forEach(function(e) {" +
+                            "         if (obj.UserName == userName) {" +
+                            "             return e;" +
+                            "         }" +
+                            "     });" +
+                            "     return null;" +
+                            " }" +
+                            " var $scope1 = angular.element('.chat_item').scope(); "
+                            +" var $scope2 = angular.element('[ng-controller=chatSenderController]').scope(); "
+                            +" var cur_userName = $scope1.account.UserName;"
+                            + "var enable_boot = true; "
+                            +" $scope1.$watch('chatList',function(v1,v2){ "
+                            +"     var  i = 0; "
+                            +"     var e = v1[0]; "
+                            +"     var last = findLast (v2,e.UserName); "
+                            +"     var msg = e.MMDigest; "
+                            +"     if (enable_boot && msg != null && msg != '' && (last == null || msg != last.MMDigest)  && !e.isBlackContact() && !e.isSpContact() && e.UserName != cur_userName) { " //&& !e.isRoomContact()
+                            +"         $scope1.currentUserName = e.UserName; "
+                            +"         $scope1.itemClick(e.UserName); "
+                            +"         setTimeout(function(){ "
+                            +"             $scope1.$apply(); "
+                            +"             var $scope3 = angular.element(\"[ng-repeat='message in chatContent']:last\").scope(); "
+                            +"             var message = $scope3.message.MMActualContent,msgId= $scope3.message.MsgId,actualSender = $scope3.message.MMActualSender; "
+                            +"             if (cur_userName == actualSender) {return;} "
+                            +"             var reply = getReply(message,msgId,cur_userName,actualSender,e.isRoomContact()); "
+                            +"             if(reply != null) { "
+                            +"                $scope2.editAreaCtn = reply; "
+                            +"                $scope2.sendTextMessage(); "
+                            +"                setTimeout(function(){ "
+                            +"                         $scope2.$apply();$scope1.$apply() "
+                            +"                },500); "
+                            +"             } "
+                            +"         },500); "
+                            +"     } "
+                            +"},true);");
+        			firstClick = false;
+        			} else {
+        				browser.execute("enable_boot = true");
+        			}
+        		} else {
+        			browser.execute("enable_boot = false");
         		}
         	}
         });
         
+        Button btn_roomChat = new Button(group,SWT.CHECK);
+        btn_roomChat.setSelection(false);
+        btn_roomChat.setText("å¼€å¯ç¾¤èŠ");
+        FormData d1 = new FormData();
+        d1.left = new FormAttachment(btn_autoResp,10);
+        btn_roomChat.setLayoutData(d1);
+        btn_roomChat.addSelectionListener(new SelectionAdapter(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button btn = (Button) e.widget;
+				if (btn.getSelection()) {
+					ROOMCHAT_ENABLED = true;
+				} else {
+					ROOMCHAT_ENABLED = false;
+				}
+			}
+        });
+        
         Label l2 = new Label(group,SWT.NONE);
-        l2.setText("¹æÔòÁĞ±í");
+        l2.setText("è§„åˆ™åˆ—è¡¨");
         FormData data2 = new FormData();
         data2.top = new FormAttachment(btn_autoResp, 10);
         l2.setLayoutData(data2);
         
         Button btn_addRule = new Button(group,SWT.FLAT);
-        btn_addRule.setText("Ôö¼Ó¹æÔò");
+        btn_addRule.setText("å¢åŠ è§„åˆ™");
         FormData d3 = new FormData();
         d3.left = new FormAttachment(l2,40);
         d3.top = new FormAttachment(btn_autoResp,5);
@@ -113,7 +240,13 @@ public class Application {
         btn_addRule.addMouseListener(new MouseAdapter(){
         	public void mouseUp(MouseEvent e){
         		Popup dialog = new Popup(shell);
-        		dialog.open();
+        		ReplyConfig config = (ReplyConfig) dialog.open();
+        		if (config != null) {
+        			if (!configs.contains(config)) {
+        				configs.add(config);
+        			}
+        		}
+        		refreshConfigs();
         	}
         });
 		
@@ -127,23 +260,23 @@ public class Application {
         tb_rules.setHeaderVisible(true);
         
         TableColumn tc1 = new TableColumn(tb_rules, SWT.NONE);
-        tc1.setText("¹Ø¼ü×Ö");
+        tc1.setText("å…³é”®å­—");
         tc1.pack();
         
         TableColumn tc2 = new TableColumn(tb_rules, SWT.LEFT);
-        tc2.setText(" »Ø¸´ÀàĞÍ ");
+        tc2.setText(" å›å¤ç±»å‹ ");
         tc2.pack();
         
-        final String[][] cellValues = {{"Í¶Æ±","ÎÄ±¾»Ø¸´"},{"ÑéÖ¤Âë","³ÌĞò»Ø¸´"},{"»î¶¯","ÎÄ±¾»Ø¸´"}};
+        //final String[][] cellValues = {{"æŠ•ç¥¨","æ–‡æœ¬å›å¤"},{"éªŒè¯ç ","ç¨‹åºå›å¤"},{"æ´»åŠ¨","æ–‡æœ¬å›å¤"}};
         
         tb_rules.addListener(SWT.SetData, new Listener(){
             public void handleEvent(Event event) {
                 TableItem item = (TableItem)event.item;
                 int index = event.index;
-                item.setText(cellValues [index]);
+                item.setText(new String[]{configs.get(index).getMatch(),configs.get(index).getReplyType()});
             }
         });
-        tb_rules.setItemCount(3);//TODO:
+        tb_rules.setItemCount(configs.size());//TODO:
         
         
         createMenu();
@@ -154,40 +287,50 @@ public class Application {
 		display.dispose();
 	}
 	
-	// ´´½¨ÉÏÏÂÎÄ²Ëµ¥  
+	// åˆ›å»ºä¸Šä¸‹æ–‡èœå•  
     private void createMenu()  
     {  
-        // ´´½¨µ¯³öÊ½²Ëµ¥  
+        // åˆ›å»ºå¼¹å‡ºå¼èœå•  
         menu = new Menu(shell, SWT.POP_UP);  
-        // ÉèÖÃ¸Ã²Ëµ¥Îª±í¸ñ²Ëµ¥  
+        // è®¾ç½®è¯¥èœå•ä¸ºè¡¨æ ¼èœå•  
         tb_rules.setMenu(menu);  
-        // ´´½¨É¾³ı²Ëµ¥Ïî  
+        // åˆ›å»ºåˆ é™¤èœå•é¡¹  
         MenuItem del = new MenuItem(menu, SWT.PUSH);  
-        del.setText("É¾³ı");   
-        // ÎªÉ¾³ı²Ëµ¥×¢²áÊÂ¼ş£¬µ±µ¥»÷Ê±£¬É¾³ıËùÑ¡ÔñµÄĞĞ  
+        del.setText("åˆ é™¤");   
+        // ä¸ºåˆ é™¤èœå•æ³¨å†Œäº‹ä»¶ï¼Œå½“å•å‡»æ—¶ï¼Œåˆ é™¤æ‰€é€‰æ‹©çš„è¡Œ  
         del.addListener(SWT.Selection, new Listener()  
         {  
             public void handleEvent(Event event)  
             {  
-                // ´Ë´¦ĞèÌí¼ÓÉ¾³ı°ó¶¨ControlµÄ´úÂë  
+            	int index = tb_rules.getSelectionIndex();
+            	configs.remove(index);
+                // æ­¤å¤„éœ€æ·»åŠ åˆ é™¤ç»‘å®šControlçš„ä»£ç   
             	tb_rules.remove(tb_rules.getSelectionIndices());  
+            	
             }  
         });  
-        // ´´½¨²é¿´²Ëµ¥Ïî  
+        // åˆ›å»ºæŸ¥çœ‹èœå•é¡¹  
         MenuItem view = new MenuItem(menu, SWT.PUSH);  
-        view.setText("²é¿´");  
-        // Îª²é¿´²Ëµ¥Ïî×¢²áÊÂ¼ş£¬µ±µ¥»÷Ê±´òÓ¡³öËùÑ¡µÄĞÕÃû  
+        view.setText("æŸ¥çœ‹");  
+        // ä¸ºæŸ¥çœ‹èœå•é¡¹æ³¨å†Œäº‹ä»¶ï¼Œå½“å•å‡»æ—¶æ‰“å°å‡ºæ‰€é€‰çš„å§“å  
         view.addListener(SWT.Selection, new Listener()  
         {  
             public void handleEvent(Event event)  
             {  
-                TableItem[] items = tb_rules.getSelection();  
-                for (int i = 0; i < items.length; i++)  
-                    System.out.print(items[i].getText());  
+            	int index = tb_rules.getSelectionIndex();
+            	ReplyConfig config = configs.get(index);
+            	Popup dialog = new Popup(shell);
+            	dialog.setConfig(config);
+        		dialog.open();
+        		refreshConfigs();
             }  
         });  
     }
 	
+    private void refreshConfigs() {
+    	tb_rules.clearAll();
+    	tb_rules.setItemCount(configs.size());
+    }
 	public static void main(String[] args) {
 		Application app = new Application();
 		app.show();
