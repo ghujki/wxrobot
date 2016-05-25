@@ -1,0 +1,1 @@
+[{"replyType":"Text","match":"你好","replyContent":"你好,直接回复机器码可以获得游戏码哦!"},{"replyType":"Custom","match":"\\d{6}","replyContent":"com.wsg.robot.reply.MachineCodeReply"}]

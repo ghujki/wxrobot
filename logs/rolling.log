@@ -1,0 +1,59 @@
+05-25-2016 ERROR c.w.r.Application [main] org.json.JSONArray cannot be cast to org.json.JSONObject
+java.lang.ClassCastException: org.json.JSONArray cannot be cast to org.json.JSONObject
+	at com.wsg.robot.Application.<init>(Application.java:72) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:327) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] org.json.JSONArray cannot be cast to org.json.JSONObject
+java.lang.ClassCastException: org.json.JSONArray cannot be cast to org.json.JSONObject
+	at com.wsg.robot.Application.<init>(Application.java:72) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:327) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
+org.json.JSONException: JSONObject["type"] not found.
+	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
+	at org.json.JSONObject.getString(JSONObject.java:721) ~[json-20151123.jar:?]
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:327) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
+org.json.JSONException: JSONObject["type"] not found.
+	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
+	at org.json.JSONObject.getString(JSONObject.java:721) ~[json-20151123.jar:?]
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:329) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
+org.json.JSONException: JSONObject["type"] not found.
+	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
+	at org.json.JSONObject.getString(JSONObject.java:721) ~[json-20151123.jar:?]
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:329) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
+java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
+java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
+java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
+java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
+org.json.JSONException: JSONObject["type"] not found.
+	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
+	at com.wsg.robot.Application.<init>(Application.java:74) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] java.lang.String cannot be cast to org.json.JSONObject
+java.lang.ClassCastException: java.lang.String cannot be cast to org.json.JSONObject
+	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] java.lang.String cannot be cast to org.json.JSONObject
+java.lang.ClassCastException: java.lang.String cannot be cast to org.json.JSONObject
+	at com.wsg.robot.Application.<init>(Application.java:71) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:328) [bin/:?]
+05-25-2016 ERROR c.w.r.Application [main] java.lang.String cannot be cast to org.json.JSONObject
+java.lang.ClassCastException: java.lang.String cannot be cast to org.json.JSONObject
+	at com.wsg.robot.Application.<init>(Application.java:71) [bin/:?]
+	at com.wsg.robot.Application.main(Application.java:329) [bin/:?]
