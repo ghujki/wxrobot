@@ -1,59 +1,42 @@
-05-25-2016 ERROR c.w.r.Application [main] org.json.JSONArray cannot be cast to org.json.JSONObject
-java.lang.ClassCastException: org.json.JSONArray cannot be cast to org.json.JSONObject
-	at com.wsg.robot.Application.<init>(Application.java:72) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:327) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] org.json.JSONArray cannot be cast to org.json.JSONObject
-java.lang.ClassCastException: org.json.JSONArray cannot be cast to org.json.JSONObject
-	at com.wsg.robot.Application.<init>(Application.java:72) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:327) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
-org.json.JSONException: JSONObject["type"] not found.
-	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
-	at org.json.JSONObject.getString(JSONObject.java:721) ~[json-20151123.jar:?]
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:327) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
-org.json.JSONException: JSONObject["type"] not found.
-	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
-	at org.json.JSONObject.getString(JSONObject.java:721) ~[json-20151123.jar:?]
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:329) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
-org.json.JSONException: JSONObject["type"] not found.
-	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
-	at org.json.JSONObject.getString(JSONObject.java:721) ~[json-20151123.jar:?]
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:329) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
-java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
-java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
-java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] org.json.JSONObject cannot be cast to java.util.Map
-java.lang.ClassCastException: org.json.JSONObject cannot be cast to java.util.Map
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] JSONObject["type"] not found.
-org.json.JSONException: JSONObject["type"] not found.
-	at org.json.JSONObject.get(JSONObject.java:475) ~[json-20151123.jar:?]
-	at com.wsg.robot.Application.<init>(Application.java:74) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] java.lang.String cannot be cast to org.json.JSONObject
-java.lang.ClassCastException: java.lang.String cannot be cast to org.json.JSONObject
-	at com.wsg.robot.Application.<init>(Application.java:73) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:330) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] java.lang.String cannot be cast to org.json.JSONObject
-java.lang.ClassCastException: java.lang.String cannot be cast to org.json.JSONObject
-	at com.wsg.robot.Application.<init>(Application.java:71) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:328) [bin/:?]
-05-25-2016 ERROR c.w.r.Application [main] java.lang.String cannot be cast to org.json.JSONObject
-java.lang.ClassCastException: java.lang.String cannot be cast to org.json.JSONObject
-	at com.wsg.robot.Application.<init>(Application.java:71) [bin/:?]
-	at com.wsg.robot.Application.main(Application.java:329) [bin/:?]
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,5910704197130352960,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hello,719587635291060813,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hello,719587635291060813,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,6727606902759061578,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,6727606902759061578,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 什么菜咯,895809356659186263,@eeb3d55bd4d51aac59e183aad5e0086a,@ec85de7fcef1198ea306999052399fcd,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 什么菜咯,895809356659186263,@eeb3d55bd4d51aac59e183aad5e0086a,@ec85de7fcef1198ea306999052399fcd,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 什么菜咯,895809356659186263,@eeb3d55bd4d51aac59e183aad5e0086a,@ec85de7fcef1198ea306999052399fcd,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 什么菜咯,895809356659186263,@eeb3d55bd4d51aac59e183aad5e0086a,@ec85de7fcef1198ea306999052399fcd,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 什么菜咯,895809356659186263,@eeb3d55bd4d51aac59e183aad5e0086a,@ec85de7fcef1198ea306999052399fcd,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 什么菜咯,895809356659186263,@eeb3d55bd4d51aac59e183aad5e0086a,@ec85de7fcef1198ea306999052399fcd,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,4986011291002034881,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,4986011291002034881,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,4986011291002034881,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,4986011291002034881,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] 你好,4986011291002034881,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] 你好,4986011291002034881,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,5231256682070686905,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,5231256682070686905,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,5231256682070686905,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,5231256682070686905,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,5231256682070686905,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,5231256682070686905,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,7419839092275141795,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,7419839092275141795,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,7419839092275141795,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,7419839092275141795,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,7419839092275141795,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,7419839092275141795,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,5336712274249667377,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,5336712274249667377,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,5336712274249667377,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,5336712274249667377,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetReplyFunction [main] hi,5336712274249667377,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false
+06-02-2016 DEBUG c.w.r.GetImageReplyFunction [main] hi,5336712274249667377,@eeb3d55bd4d51aac59e183aad5e0086a,@9ee1ea3a7dc9d2a11fcfc2dab8b8f42712f339269fea58db6b7012e35bc1dea1,false

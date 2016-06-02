@@ -41,7 +41,7 @@ public class ReplyConfig {
 	}
 	
 	public String getReply(String msg,String sender) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		if ("Text".equals(this.replyType)) {
+		if ("Text".equals(this.replyType) || "PLAIN".equals(this.replyType)) {
 			return this.replyContent;
 		} else {
 			IReply rep = (IReply)Class.forName(replyContent).newInstance();
