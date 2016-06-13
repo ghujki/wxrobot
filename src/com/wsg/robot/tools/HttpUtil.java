@@ -2,6 +2,7 @@ package com.wsg.robot.tools;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -89,6 +90,31 @@ public class HttpUtil {
 			}
 			return stringBuffer.toString();
 		}
+    }
+    
+    public static InputStream getHttpsSteam(String url,Map<String,String> params) throws Exception {
+    	HostnameVerifier hv = new HostnameVerifier() {
+            public boolean verify(String urlHostName, SSLSession session) {
+                System.out.println("Warning: URL Host: " + urlHostName + " vs. "
+                                   + session.getPeerHost());
+                return true;
+            }
+        };
+        trustAllHttpsCertificates();
+		HttpsURLConnection.setDefaultHostnameVerifier(hv);
+    	URL uri = new URL(url);
+    	HttpURLConnection connection = (HttpURLConnection) uri.openConnection();
+    	if (params != null) {
+        	for (String key : params.keySet()) {
+        		connection.addRequestProperty(key, params.get(key));
+        	}}
+    	connection.setRequestMethod("GET");
+    	connection.setDoOutput(true);
+    	connection.setDoInput(true);
+    	connection.setUseCaches(false);
+    	
+    	
+		return connection.getInputStream();
     }
     
     private static void trustAllHttpsCertificates() throws Exception {

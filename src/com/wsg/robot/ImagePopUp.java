@@ -2,6 +2,11 @@ package com.wsg.robot;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -25,6 +30,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import com.wsg.robot.tools.HttpUtil;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -125,29 +132,43 @@ public class ImagePopUp extends Dialog {
         	Group group2  = new Group(shell,SWT.NONE);
             group2.setLayoutData(new GridData(SWT.FILL,SWT.FILL,false,false,5,2));
             group2.setLayout(new GridLayout());
-            browser.execute("var $scope2 = angular.element('[ng-controller=chatSenderController]').scope();var imageMessageThumbs = [];var mediaIds = [];");
-            browser.execute("for (var i = 0 ;i < $scope2.imagesMessagesList.length; i ++) {imageMessageThumbs[i] = $scope2.imagesMessagesList[i].msg.MMThumbSrc;mediaIds[i] = $scope2.imagesMessagesList[i].msg.MediaId;}");
+            browser.execute("var $scope3 = angular.element(\"[ng-repeat='message in chatContent']:last\").scope();var imageMessageThumbs = [];var mediaIds = [];");
+            browser.execute("for (var i = 0 ;i < $scope3.imagesMessagesList.length; i ++) {imageMessageThumbs[i] = $scope3.imagesMessagesList[i].preview;mediaIds[i] = $scope3.imagesMessagesList[i].msg.MediaId;}");
             Object[] o = (Object[]) browser.evaluate("return imageMessageThumbs;");
             Object[] medias = (Object[]) browser.evaluate("return mediaIds;");
+            String cookiestr = (String)browser.evaluate("return document.cookie;");
+            Map <String ,String> cookie = new HashMap<> ();
+            cookie.put("Cookie", cookiestr);
             for(int i = 0; i < o.length ;i ++) {
             	String src = o[i].toString();
             	final int k = i;
-            	Image image  = this.base64StringToImage(src.replace("data:image/jpeg;base64,", ""));
+            	Image image = null;
             	Button btn1 = new Button(group2,SWT.PUSH);
-            	btn1.setLayoutData(new GridData(SWT.LEFT,SWT.CENTER,false,false,1,1));
-                //btn1.setBackgroundImage(image);
-                btn1.setImage(image);
-                //Image image = new Image(this.shell.getDisplay());
-                btn1.addSelectionListener(new SelectionAdapter() {
+            	if (src.startsWith("data:image")) {
+            		 image  = this.base64StringToImage(src.replace("data:image/jpeg;base64,", ""));
+            		 btn1.setLayoutData(new GridData(SWT.LEFT,SWT.CENTER,false,false,1,1));
+                     //btn1.setBackgroundImage(image);
+                 	if (image != null) {
+                 		btn1.setImage(image);
+                 	}
+                     //Image image = new Image(this.shell.getDisplay());
+                     btn1.addSelectionListener(new SelectionAdapter() {
 
-    				@Override
-    				public void widgetSelected(SelectionEvent e) {
-    					txt_content.setText(medias[k].toString());
-    					txt_content.setVisible(true);
-    					group2.setVisible(false);
-    				}
-                	
-                });
+         				@Override
+         				public void widgetSelected(SelectionEvent e) {
+         					txt_content.setText(medias[k].toString());
+         					txt_content.setVisible(true);
+         					group2.setVisible(false);
+         				}
+                     	
+                     });
+            	}
+//            	else {
+//            		 image = this.loadRemoteImage("https://wx.qq.com" + src,cookie);
+//            		 btn1.setVisible(false);
+//            	}
+            	
+            	
             }
         }
         
@@ -179,6 +200,30 @@ public class ImagePopUp extends Dialog {
         Rectangle shellBounds = shell.getBounds();  
         shell.setLocation(parentBounds.x + (parentBounds.width - shellBounds.width)/2, parentBounds.y + (parentBounds.height - shellBounds.height)/2);
     }
+	
+	
+	public Image loadRemoteImage (String uri,Map<String,String> params) {
+		InputStream is = null;
+		try {
+			System.out.println(uri);
+			is = HttpUtil.getHttpsSteam(uri, params);
+			ImageLoader loader = new ImageLoader();
+			ImageData[] datas = loader.load(is);
+			Image image  = new Image(this.shell.getDisplay(),datas[0]);
+			return image;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
 	
 	public Image base64StringToImage(String base64String){    
 		BASE64Encoder encoder = new sun.misc.BASE64Encoder();  
