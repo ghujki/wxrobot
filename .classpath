@@ -2,13 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_91"/>
-	<classpathentry kind="lib" path="G:/workspace/others/swt-4.5-win32-win32-x86_64/swt.jar" sourcepath="G:/workspace/others/swt-4.5-win32-win32-x86_64/src.zip">
+	<classpathentry kind="lib" path="json-20151123.jar"/>
+	<classpathentry kind="lib" path="log4j-api-2.5.jar"/>
+	<classpathentry kind="lib" path="log4j-core-2.5.jar"/>
+	<classpathentry kind="lib" path="F:/download/java/swt-4.6RC4a-win32-win32-x86_64/swt.jar" sourcepath="F:/download/java/swt-4.6RC4a-win32-win32-x86_64/src.zip">
 		<attributes>
 			<attribute name="source_encoding" value="UTF-8"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="json-20151123.jar"/>
-	<classpathentry kind="lib" path="log4j-api-2.5.jar"/>
-	<classpathentry kind="lib" path="log4j-core-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

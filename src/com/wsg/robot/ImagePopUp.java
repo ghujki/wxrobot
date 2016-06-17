@@ -133,7 +133,10 @@ public class ImagePopUp extends Dialog {
             group2.setLayoutData(new GridData(SWT.FILL,SWT.FILL,false,false,5,2));
             group2.setLayout(new GridLayout());
             browser.execute("var $scope3 = angular.element(\"[ng-repeat='message in chatContent']:last\").scope();var imageMessageThumbs = [];var mediaIds = [];");
-            browser.execute("for (var i = 0 ;i < $scope3.imagesMessagesList.length; i ++) {imageMessageThumbs[i] = $scope3.imagesMessagesList[i].preview;mediaIds[i] = $scope3.imagesMessagesList[i].msg.MediaId;}");
+            browser.execute("for (var i = 0 ;i < $scope3.imagesMessagesList.length; i ++) {"
+            		+ " if($scope3.imagesMessagesList[i].msg.MediaId) { "
+            		+ " imageMessageThumbs[i] = $scope3.imagesMessagesList[i].url;"
+            		+ " mediaIds[i] = $scope3.imagesMessagesList[i].msg.MediaId;}}");
             Object[] o = (Object[]) browser.evaluate("return imageMessageThumbs;");
             Object[] medias = (Object[]) browser.evaluate("return mediaIds;");
             String cookiestr = (String)browser.evaluate("return document.cookie;");
@@ -144,30 +147,30 @@ public class ImagePopUp extends Dialog {
             	final int k = i;
             	Image image = null;
             	Button btn1 = new Button(group2,SWT.PUSH);
+            	btn1.setSize(50, 50);
             	if (src.startsWith("data:image")) {
             		 image  = this.base64StringToImage(src.replace("data:image/jpeg;base64,", ""));
-            		 btn1.setLayoutData(new GridData(SWT.LEFT,SWT.CENTER,false,false,1,1));
-                     //btn1.setBackgroundImage(image);
-                 	if (image != null) {
-                 		btn1.setImage(image);
-                 	}
-                     //Image image = new Image(this.shell.getDisplay());
-                     btn1.addSelectionListener(new SelectionAdapter() {
-
-         				@Override
-         				public void widgetSelected(SelectionEvent e) {
-         					txt_content.setText(medias[k].toString());
-         					txt_content.setVisible(true);
-         					group2.setVisible(false);
-         				}
-                     	
-                     });
+            		
             	}
-//            	else {
-//            		 image = this.loadRemoteImage("https://wx.qq.com" + src,cookie);
-//            		 btn1.setVisible(false);
-//            	}
-            	
+            	else {
+            		 image = this.loadRemoteImage("https://wx.qq.com" + src,cookie);
+            	}
+            	 btn1.setLayoutData(new GridData(SWT.LEFT,SWT.CENTER,false,false,1,1));
+                 //btn1.setBackgroundImage(image);
+             	if (image != null) {
+             		btn1.setImage(image);
+             	}
+                 //Image image = new Image(this.shell.getDisplay());
+                 btn1.addSelectionListener(new SelectionAdapter() {
+
+     				@Override
+     				public void widgetSelected(SelectionEvent e) {
+     					txt_content.setText(medias[k].toString());
+     					txt_content.setVisible(true);
+     					group2.setVisible(false);
+     				}
+                 	
+                 });
             	
             }
         }
